@@ -115,18 +115,18 @@ Dataset bersih diubah ke dalam format PDF/TXT agar dapat dengan dilakukan splitt
 
 ## Kode Program  
 - **Struktur Kode:**  
-  - Terdapat 2 notebook: satu untuk ETL, satu untuk Machine Learning.
+  - Terdapat 1 notebook: untuk ETL.
   - Nama variabel dan fungsi deskriptif: `df_merge`, `transform_data()`, `Total_Emisi`, dll.
     
 - **Machine Learning:**  
-  - Model utama: K-Means Clustering (3 kategori: rendah, sedang, tinggi)
-  - Visualisasi PCA untuk melihat distribusi cluster
-  - Model pembanding: DBSCAN, **Gaussian Mixture Model
-  - Evaluasi dengan heatmap korelasi dan scatter plot hasil PCA
+  - Dataset bersih diekspor ke format PDF/TXT.
+  - Dokumen di-split dan di-embed untuk digunakan sebagai basis pengetahuan.
+  - Model LLM: Llama 3.2 yang dijalankan secara lokal.
+  - Output: sistem tanya jawab yang mampu menjawab pertanyaan seputar analisis dan prediksi Piala Dunia 2026.
 
 - **Link Projek:** 
-  - ETL Pipeline: [https://colab.research.google.com/drive/1QXWeLagmfu2rTsXHOVhHGJySGZJXSZC9?usp=sharing](https://colab.research.google.com/drive/1YwSpaGzl-FJRWDLpzKLOP7Lya2XAyNgs?usp=sharing)
-  - Machine Learning: [https://colab.research.google.com/drive/1ZOKVncLMsOHem02JAikUDV3UPLFzNGO7?usp=sharing](https://colab.research.google.com/drive/1ZOKVncLMsOHem02JAikUDV3UPLFzNGO7?usp=sharing)
-  - Looker :[(https://lookerstudio.google.com/reporting/e72b27de-4529-491c-9849-a7408707a18a)](https://lookerstudio.google.com/reporting/e72b27de-4529-491c-9849-a7408707a18a)
+  - ETL Pipeline: [https://colab.research.google.com/drive/1FMwSypo8F6wmvMd8d8Ckx-VGMnl93IB8?usp=sharing] & [https://colab.research.google.com/drive/1JUkWVrYuBowOaEg0Q2NBuDDgkevVObzd?usp=sharing]
+  - Machine Learning:[https://worldcuppredict-trpl4a.streamlit.app]
+  - Looker :[https://datastudio.google.com/reporting/30db07ec-14b8-42b7-bc82-5f761c1d1a9c]
 
 ---
