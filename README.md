@@ -45,6 +45,8 @@ Dataset bersih diubah ke dalam format PDF/TXT agar dapat dengan dilakukan splitt
     (https://www.fifa.com/en/world-rankings) 
   - Rekor Pertandingan Tim  - Website
     (https://inside.fifa.com/api/live-world-ranking/get-match-window-matches?locale=en&gender=1&rankingType=0)
+  - Transfer Market - Website
+    (https://www.transfermarkt.co.id/vereins-statistik/wertvollstenationalmannschaften/marktwertetop?page=)
 
 - **Metode Pengambilan:**  
 **HTTP Request (API Football):**  
