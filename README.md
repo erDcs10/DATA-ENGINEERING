@@ -43,28 +43,43 @@ Dataset bersih diubah ke dalam format PDF/TXT agar dapat dengan dilakukan splitt
     (https://www.api-football.com) 
   - FIFA Ranking – Website  
     (https://www.fifa.com/en/world-rankings) 
-  - Rekor Pertandingan Tim  - Website
     (https://inside.fifa.com/api/live-world-ranking/get-match-window-matches?locale=en&gender=1&rankingType=0)
   - Transfer Market - Website
     (https://www.transfermarkt.co.id/vereins-statistik/wertvollstenationalmannschaften/marktwertetop?page=)
 
-- **Metode Pengambilan:**  
-**HTTP Request (API Football):**  
-    - Menggunakan API Football untuk mengambil data pemain dan data timnas yang berlaga di piala dunia.  
-**Web Scraping (Fifa Website):**  
-    - Mencoba mengambil tabel ranking menggunakan WebBaseLoader yang disediakan oleh langchain.  
+### Metode Pengambilan
+
+**HTTP Request (API Football):**
+- Menggunakan API Football untuk mengambil data pemain dan data tim nasional yang berpartisipasi pada Piala Dunia.
+- Data diperoleh dalam format JSON melalui endpoint API yang tersedia.
+
+**Inspect Network Request & HTTP Request (FIFA Website):**
+- Menggunakan Developer Tools (F12) untuk mengidentifikasi endpoint JSON yang digunakan oleh website FIFA.
+- Mengambil data ranking FIFA, poin FIFA, konfederasi, serta data pertandingan setiap tim nasional menggunakan HTTP Request.
+- Data yang diperoleh mencakup hasil pertandingan, jumlah gol masuk, dan jumlah gol kebobolan.
+
+**Web Scraping (Transfermarkt):**
+- Menggunakan library `requests` dan `pandas.read_html()` untuk mengambil tabel nilai pasar (market value) tim nasional dari halaman Transfermarkt.
+- Data diekstrak dari beberapa halaman dan digabungkan menjadi satu dataset.
+
 ---
 
-## Transform ( Pembersihan & Transformasi )   
-- **Pembersihan:**  
-  - Menghapus kolom dan baris kosong (`dropna()`), serta mengisi missing value seperti `STATUS` → "Member State".
-  - Normalisasi nama kolom agar seragam (contoh: `2018_x` → `Jumlah_Emisi_2018`)
+## Transform (Pembersihan & Transformasi)
 
-- **Transformasi:**  
-  - Menggabungkan ketiga dataset (`df_emisi`, `df_kebakaran`, `df_geo`) berdasarkan kolom `Provinsi`.
-  - Menghitung `Total_Emisi` dan menambahkan label `Kategori_Emisi` berdasarkan clustering.
-  - Pipeline modular memungkinkan efisiensi dan reusabilitas dalam pengolahan data.
+### Pembersihan
+- Menggabungkan seluruh tabel hasil scraping Transfermarkt menjadi satu DataFrame.
+- Menghapus baris kosong (null rows) dari dataset hasil scraping.
+- Memilih atribut yang relevan seperti nama negara, ranking FIFA, poin FIFA, konfederasi, market value, statistik gol, dan hasil pertandingan.
+- Melakukan normalisasi nama negara dengan mengubah format teks menjadi huruf kecil dan menghilangkan perbedaan penulisan.
+- Menyamakan nama negara antar dataset FIFA, Transfermarkt, dan daftar peserta Piala Dunia menggunakan proses mapping.
 
+### Transformasi
+- Mengubah data JSON FIFA menjadi dataset terstruktur menggunakan DataFrame.
+- Menghitung total gol masuk (goal in) dan total gol kebobolan (goal out) berdasarkan riwayat pertandingan setiap tim nasional.
+- Menentukan status pertandingan (Menang, Seri, atau Kalah) dari setiap pertandingan yang dimainkan.
+- Mengekstrak dan membersihkan data market value dari hasil scraping Transfermarkt.
+- Menstandarkan format data agar seluruh dataset dapat digabungkan berdasarkan identitas negara.
+- Pipeline ETL dibuat secara modular sehingga proses ekstraksi, pembersihan, dan transformasi dapat digunakan kembali secara efisien.
 ---
 
 ## Load ( Pemindahan ke Target ) 
@@ -83,14 +98,17 @@ Dataset bersih diubah ke dalam format PDF/TXT agar dapat dengan dilakukan splitt
 
 ## Arsitektur / Workflow ETL  
 - **Alur Modular:**  
-  - Proses ETL diringkas dalam sebuah fungsi transformasi() yang mencakup langkah-langkah membaca, membersihkan, mengisi, menggabungkan, dan mengubah data.
-  -  Kode diorganisir secara sekuensial di dalam notebook Google Colab.
-
+  - Proses ETL dibagi menjadi beberapa fungsi terpisah sesuai tanggung jawab masing-masing proses.
+  - Tahap Extract mengambil data dari beberapa sumber, yaitu API Football, endpoint JSON FIFA, dan website Transfermarkt.
+  - Tahap Transform melakukan pembersihan data, normalisasi nama negara, perhitungan statistik pertandingan, serta standarisasi format data antar sumber.
+  - Dataset yang telah dibersihkan kemudian dipersiapkan untuk proses penggabungan dan analisis lebih lanjut.
+  - Kode diorganisir secara sekuensial dalam notebook Google Colab sehingga setiap tahapan ETL dapat dijalankan dan diuji secara mandiri.
+    
 - **Tools yang Digunakan:**  
   - Python 3.x
-  - Library: `pandas`, `numpy`, `sqlalchemy`, `matplotlib`, `seaborn`, `sklearn`, `scipy`
+  - Library: `pandas`, `numpy`, `request`, `time`, `io.StringIO`
   - Platform: Google Colab
-
+    
 ---
 
 ## Kode Program  
