@@ -1,5 +1,5 @@
 # DATA-ENGINEERING  
-# Proyek : Sistem Prediksi dan Analisa Seputar Piala Dunia 2026 Berbasis RAG
+# Proyek : Sistem Prediksi dan Analisa Seputar Piala Dunia 2026 Berbasis Tanya Jawab 
 
 ---
 
@@ -15,44 +15,42 @@
 ---
 
 ## Deskripsi Proyek  
-Project ini di kembangkan untuk mengidentifikasi pola hubungan antara luas kebakaran hutan dan lahan dengan peningkatan emisi karbon (CO₂e) di Indonesia. Dengan Tujuan memahami kontribusi kebakaran hutan terhadap emisi karbon dan menentukan tingkat emisi berdasarkan luas lahan, luas kebakaran, dan jumlah emisi karbon. Selain itu, Project ini juga menganalisis perubahan luas kebakaran hutan dan emisi karbon per provinsi serta mengidentifikasi wilayah dengan tingkat emisi tinggi akibat kebakaran hutan beserta pola perubahannya setiap tahun
+Project ini mengambil data dari berbagai API olahraga ternama lalu diolah menjadi sebuah sistem RAG menggunakan Llama 3.2 yang di run secara lokal sebagai LLM nya.  
 
 ---
 
 ## Manfaat Data / Use Case  
-- **Tujuan Proyek:** Menyediakan data terintegrasi yang menggambarkan pola hubungan antara luas kebakaran hutan dan lahan dengan peningkatan emisi karbon (CO₂e) di Indonesia.
+- **Tujuan Proyek:** Menyediakan alat analisis dan prediksi yang akurat terkait perkembangan sepak bola menjelang Piala Dunia 2026
 - **Manfaat:**  
   - Menyediakan sumber data yang telah melalui proses validasi dan transformasi, sehingga siap digunakan untuk studi lanjutan.  
-  - Membuka peluang bagi pengembang teknologi prediktif, seperti model machine learning untuk mitigasi bencana 
-  - Hasil ETL proyek ini mendukung dashboard visualisasi sebagai upaya meningkatkan efisiensi analisis data lingkungan
+  - Memberikan insight bagi para pecinta bola mengenai perkembangan sepak bola menjelang Piala Dunia 2026.
+  - Hasil ETL proyek ini mendukung dashboard visualisasi sebagai dasar dari pengembangan model.
 
 ---
 
 ## Serving Analisis  
-Data hasil ETL disimpan dalam format PostgreSQL yang terstruktur dan dapat diakses untuk eksplorasi lanjutan menggunakan Google Colab atau visualisasi interaktif melalui Looker Studio. Penyimpanan ini memungkinkan analisis korelasi, distribusi wilayah emisi tinggi, dan pembuatan dashboard lingkungan.
+Data hasil ETL disimpan kedalam Aiven dan dapat diakses untuk eksplorasi lanjutan menggunakan Google Colab atau visualisasi interaktif melalui Looker Studio. Penyimpanan ini meningkatkan keamanan dan ketersediaan data analisis tim dan data analisis pemain.
 
 ## Serving Machine Learning  
-Dataset bersih digunakan untuk membangun model klasifikasi tingkat emisi karbon menggunakan beberapa algoritma machine learning. Proyek ini mengimplementasikan K-Means Clustering untuk pengelompokan wilayah, serta menggunakan PCA untuk reduksi dimensi dan visualisasi. Model juga divalidasi dengan metode DBSCAN dan Gaussian Mixture Model.
+Dataset bersih diubah ke dalam format PDF/TXT agar dapat dengan dilakukan splitting dan embedding.
 
 ---
 
 # Pipeline
 ## Extract ( Pengambilan Data ) 
 - **Sumber Data:**  
-  - Luas Kebakaran Hutan dan Lahan  – SISKLHK
-    (https://statistik.menlhk.go.id/sisklhkX/data_statistik/ppi/table7_6) 
-  - Emisi Karbon (Ton CO2e) Akibat Karhutla – Kaggle  
-    (https://statistik.menlhk.go.id/sisklhkX/data_statistik/ppi/table7_8) 
-  - Data Luas Tutupan Lahan - Google Earth Engine
-    - Dataset: `ESA/WorldCover/v100`  
-    - Administrasi Provinsi: `FAO/GAUL/2015/level1`
+  - API Football  – API
+    (https://www.api-football.com) 
+  - FIFA Ranking – Website  
+    (https://www.fifa.com/en/world-rankings) 
+  - Rekor Pertandingan Tim  - Website
+    (https://inside.fifa.com/api/live-world-ranking/get-match-window-matches?locale=en&gender=1&rankingType=0)
 
 - **Metode Pengambilan:**  
-**GeoSpatial (Google Earth Engine):**  
-    - Menggunakan Earth Engine API untuk menghitung luas tutupan lahan berdasarkan kelas seperti hutan, pertanian, semak belukar, dll.  
-    - Proses melibatkan reduksi histogram klasifikasi citra dan konversi hasil ke hektar untuk masing-masing provinsi.  
-**Web Scraping (Statistik KLHK):**  
-    - Data emisi dan kebakaran diambil dari tabel HTML publik menggunakan `pandas.read_html()` dengan kata kunci “Provinsi”.  
+**HTTP Request (API Football):**  
+    - Menggunakan API Football untuk mengambil data pemain dan data timnas yang berlaga di piala dunia.  
+**Web Scraping (Fifa Website):**  
+    - Mencoba mengambil tabel ranking menggunakan WebBaseLoader yang disediakan oleh langchain.  
 ---
 
 ## Transform ( Pembersihan & Transformasi )   
