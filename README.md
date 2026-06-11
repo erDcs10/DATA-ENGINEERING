@@ -72,6 +72,7 @@ Dataset bersih diubah ke dalam format PDF/TXT agar dapat dengan dilakukan splitt
 - Memilih atribut yang relevan seperti nama negara, ranking FIFA, poin FIFA, konfederasi, market value, statistik gol, dan hasil pertandingan.
 - Melakukan normalisasi nama negara dengan mengubah format teks menjadi huruf kecil dan menghilangkan perbedaan penulisan.
 - Menyamakan nama negara antar dataset FIFA, Transfermarkt, dan daftar peserta Piala Dunia menggunakan proses mapping.
+- Memfilter hanya data tim nasional.
 
 ### Transformasi
 - Mengubah data JSON FIFA menjadi dataset terstruktur menggunakan DataFrame.
@@ -79,6 +80,7 @@ Dataset bersih diubah ke dalam format PDF/TXT agar dapat dengan dilakukan splitt
 - Menentukan status pertandingan (Menang, Seri, atau Kalah) dari setiap pertandingan yang dimainkan.
 - Mengekstrak dan membersihkan data market value dari hasil scraping Transfermarkt.
 - Menstandarkan format data agar seluruh dataset dapat digabungkan berdasarkan identitas negara.
+- Mengonversi nama negara dari Bahasa Indonesia ke Bahasa Inggris menggunakan dictionary.
 - Pipeline ETL dibuat secara modular sehingga proses ekstraksi, pembersihan, dan transformasi dapat digunakan kembali secara efisien.
 ---
 
@@ -87,7 +89,7 @@ Dataset bersih diubah ke dalam format PDF/TXT agar dapat dengan dilakukan splitt
   - Sebuah tabel baru di dalam database pada server Aiven. Tabel ini merupakan output utama yang dapat diakses oleh layanan lain untuk melakukan analisis langsung di database.
 
 - **Metode:**  
-  - Fungsi to_sql() dari pandas digunakan untuk menulis data dari DataFrame langsung ke tabel di database PostgreSQL
+  - Fungsi to_sql() dari pandas digunakan untuk menulis data dari DataFrame langsung ke tabel di database MySQL
   - konfigurasi fungsi to_sql() diatur dengan parameter-parameter kunci:
     - name diisi dengan yang mendefinisikan nama tabel tujuan
     - con diisi dengan variabel engine, yaitu objek koneksi dari SQLAlchemy
