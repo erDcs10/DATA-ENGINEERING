@@ -8,9 +8,9 @@
 | Nama Lengkap                       | NIM         | Peran                |
 |------------------------------------|-------------|----------------------|
 | Alvina Nur Laila Anggraini         | 244311003   | Project Manager      |
-| Erlangga Deanda Chandra Setya      | 244311013   | Data Scientist       |
-| Muhammad Rosyid Ridlo Abdillah     | 244311020   | Data Analyst         |
-| Rayyan Afif                        | 244311025   | Data Engineer        |
+| Erlangga Deanda Chandra Setya      | 244311013   | Data Engineer        |
+| Muhammad Rosyid Ridlo Abdillah     | 244311020   | Data Engineer        |
+| Rayyan Afif                        | 244311025   | Data Analysist       |
 
 ---
 
@@ -107,16 +107,16 @@ Dataset bersih diubah ke dalam format PDF/TXT agar dapat dengan dilakukan splitt
   - Kode diorganisir secara sekuensial dalam notebook Google Colab sehingga setiap tahapan ETL dapat dijalankan dan diuji secara mandiri.
     
 - **Tools yang Digunakan:**  
-  - Python 3.x
+  - Python 3.14
   - Library: `pandas`, `numpy`, `request`, `time`, `io.StringIO`
-  - Platform: Google Colab
+  - Platform: Google Colab, VS Code
     
 ---
 
 ## Kode Program  
-- **Struktur Kode:**  
-  - Terdapat 1 notebook: untuk ETL.
-  - Nama variabel dan fungsi deskriptif: `df_merge`, `transform_data()`, `Total_Emisi`, dll.
+- **Struktur Proyek:**  
+├── Pipeline Fifa WorldCup.ipynb         
+├── ambil data pemain .ipynb     
     
 - **Machine Learning:**  
   - Dataset bersih diekspor ke format PDF/TXT.
@@ -126,7 +126,7 @@ Dataset bersih diubah ke dalam format PDF/TXT agar dapat dengan dilakukan splitt
 
 - **Link Projek:** 
   - ETL Pipeline: [https://colab.research.google.com/drive/1FMwSypo8F6wmvMd8d8Ckx-VGMnl93IB8?usp=sharing] & [https://colab.research.google.com/drive/1JUkWVrYuBowOaEg0Q2NBuDDgkevVObzd?usp=sharing]
-  - Machine Learning:[https://worldcuppredict-trpl4a.streamlit.app]
+  - Machine Learning:[https://github.com/erDcs10/WorldCupPredict]
   - Looker :[https://datastudio.google.com/reporting/30db07ec-14b8-42b7-bc82-5f761c1d1a9c]
 
 ---
