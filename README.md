@@ -85,17 +85,10 @@ Dataset bersih diubah ke dalam format PDF/TXT agar dapat dengan dilakukan splitt
 ---
 
 ## Load ( Pemindahan ke Target ) 
-- **Target:**  
-  - Sebuah tabel baru di dalam database pada server Aiven. Tabel ini merupakan output utama yang dapat diakses oleh layanan lain untuk melakukan analisis langsung di database.
-
-- **Metode:**  
-  - Fungsi to_sql() dari pandas digunakan untuk menulis data dari DataFrame langsung ke tabel di database MySQL
-  - konfigurasi fungsi to_sql() diatur dengan parameter-parameter kunci:
-    - name diisi dengan yang mendefinisikan nama tabel tujuan
-    - con diisi dengan variabel engine, yaitu objek koneksi dari SQLAlchemy
-      yang telah dikonfigurasi sebelumnya untuk terhubung ke database Aiven
-  - Data diverifikasi dengan membaca 5 baris pertama dari tabel baru tersebut menggunakan pd.read_sql() dan df.head()
-
+- Data akhir hasil transformasi dimuat ke dalam database MySQL yang di-hosting pada layanan cloud Aiven dengan koneksi SSL menggunakan sertifikat ca.pem untuk keamanan data.
+- Koneksi dibangun menggunakan SQLAlchemy create_engine dengan konfigurasi tambahan pool_pre_ping=True dan pool_recycle=3600 untuk menjaga stabilitas koneksi.
+- Terdapat dua tabel yang dimuat: data_pemain dan data_master, masing-masing bersumber dari file CSV.
+  
 ---
 
 ## Arsitektur / Workflow ETL  
@@ -116,7 +109,7 @@ Dataset bersih diubah ke dalam format PDF/TXT agar dapat dengan dilakukan splitt
 ## Kode Program  
 - **Struktur Proyek:**  
 ├── Pipeline Fifa WorldCup.ipynb         
-├── ambil data pemain .ipynb     
+├── ambil data pemain.ipynb     
     
 - **Machine Learning:**  
   - Dataset bersih diekspor ke format PDF/TXT.
